@@ -1,0 +1,63 @@
+DevToolkit Limited Use License v1.0
+Copyright (c) 2026 zergaus. All rights reserved.
+
+This software is proprietary software and is not open source.
+
+1. DEFINITIONS
+
+“DevToolkit” means the software and documentation distributed by the copyright holder under this license.
+
+“Official Release” means an unmodified DevToolkit release artifact published by the copyright holder through the official `zergaus/dev-toolkit` GitHub Releases page, together with any integrity information supplied for that release.
+
+2. PERMITTED USE
+
+Subject to this license, you are granted a limited, non-exclusive, non-transferable license to:
+
+(a) download an Official Release;
+(b) make copies reasonably necessary to install and run that Official Release on devices you own, control, or administer; and
+(c) use the unmodified Official Release for personal use or internal use within your organization.
+
+No ownership interest or source-code license is transferred.
+
+3. RESTRICTIONS
+
+Except where applicable law expressly requires otherwise, you may not:
+
+(a) modify, patch, adapt, translate, alter, or create derivative works of DevToolkit;
+(b) redistribute, publish, mirror, repackage, sublicense, rent, lease, sell, or otherwise provide DevToolkit to third parties as your own distribution;
+(c) incorporate DevToolkit, its source code, scripts, implementation, or substantial portions of it into another product, service, library, installer, or project;
+(d) copy or reuse DevToolkit source code, implementation details, or non-public development materials;
+(e) reverse engineer, decompile, disassemble, or otherwise attempt to derive non-published source or implementation details, except to the limited extent such restriction is prohibited by applicable law;
+(f) remove or alter copyright, license, provenance, signature, integrity, or attribution notices;
+(g) circumvent or disable integrity, signature, trust, or official-distribution checks; or
+(h) represent a modified, repackaged, mirrored, or third-party copy as an Official Release.
+
+4. INTERNAL DEPLOYMENT
+
+You may reproduce and deploy an unmodified Official Release within your own organization solely as reasonably necessary for internal use. Such internal copies remain subject to this license and may not be distributed outside that organization.
+
+5. THIRD-PARTY SOFTWARE
+
+DevToolkit may download, install, configure, detect, or manage third-party software. Third-party software is not relicensed by this license and remains subject to the license terms of its respective copyright holders and vendors.
+
+6. UPDATES AND SERVICES
+
+The copyright holder is not required to provide updates, maintenance, support, compatibility, or continued availability of any release or service.
+
+7. TERMINATION
+
+Your rights under this license terminate automatically if you materially breach these terms. Upon termination, you must stop using DevToolkit and delete or otherwise cease use of copies to the extent required by applicable law and these terms.
+
+8. DISCLAIMER OF WARRANTY
+
+DEVTOOLKIT IS PROVIDED “AS IS” AND “AS AVAILABLE”, WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT, TO THE MAXIMUM EXTENT PERMITTED BY LAW.
+
+9. LIMITATION OF LIABILITY
+
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE COPYRIGHT HOLDER SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES, OR FOR LOSS OF DATA, PROFITS, BUSINESS, OR USE, ARISING FROM OR RELATED TO DEVTOOLKIT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+10. RESERVATION OF RIGHTS
+
+All rights not expressly granted in this license are reserved by the copyright holder.
+
+By downloading, installing, or using an Official Release, you agree to these terms.
