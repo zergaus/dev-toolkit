@@ -2,51 +2,18 @@
 
 **DevToolkit** is a Windows development-environment lifecycle manager designed to make setup, repair, update, reconfiguration, and verification repeatable instead of turning each machine into a one-off installation project.
 
-> **Status:** Active development. Preview/Test pre-release `v0.1.0-preview.20260827.10` is available for bounded testing. It is **not Stable or Official**.
+> **Status:** **SECURITY HOLD.** Preview/Test pre-release `v0.1.0-preview.20260827.10` has been withdrawn to Draft. Do **not** download or run it. It is not Stable or Official.
 
-## Preview/Test quick start
+## Preview/Test security hold
 
-Run this one line in Windows PowerShell 5.1 or later:
+The first public-acquisition check exposed two unresolved release-path findings:
 
-```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "Invoke-Expression (Invoke-RestMethod -UseBasicParsing 'https://github.com/zergaus/dev-toolkit/releases/download/v0.1.0-preview.20260827.10/install-preview.ps1')"
-```
+- Avast Behavior Shield detected the test harness process `powershell.exe` as `IDP.HELU.PSE90%s_cmd` while it used `-EncodedCommand`. The observed record did not identify `DevToolkit.exe` as the detected path, but the finding has not been dismissed as a false positive.
+- The immutable bootstrap rejected GitHub's signed release-asset redirect because the redirect contains a query string. The public acquisition path therefore did not pass its declared E2E gate.
 
-The versioned installer stages only pinned bootstrap scripts, verifies their SHA-256 values, downloads the exact versioned manifest, enforces the HTTPS redirect allowlist, verifies the executable length and SHA-256, and then launches DevToolkit. It never uses a mutable `latest` URL as its integrity root.
+The release is intentionally kept as a Draft while these findings are investigated and corrected. No quick-start, Scoop, launch, or mutation command is currently authorized from this repository.
 
-The exact staged executable path is:
-
-```powershell
-$DevToolkitExe = Join-Path $env:LOCALAPPDATA 'DevToolkit\bootstrap\DevToolkit-0.1.0-preview.20260827.10-c14da16e28ed276f.exe'
-```
-
-The complete headless E2E commands are therefore:
-
-```powershell
-$DevToolkitExe = Join-Path $env:LOCALAPPDATA 'DevToolkit\bootstrap\DevToolkit-0.1.0-preview.20260827.10-c14da16e28ed276f.exe'
-& $DevToolkitExe --execute-mutations --headless full.install --state-root 'C:\DevToolkit-CIW\E2E'
-& $DevToolkitExe --headless complete.check --state-root 'C:\DevToolkit-CIW\E2E'
-& $DevToolkitExe --execute-mutations --headless update.existing --state-root 'C:\DevToolkit-CIW\E2E'
-& $DevToolkitExe --execute-mutations --headless repair.existing --state-root 'C:\DevToolkit-CIW\E2E'
-& $DevToolkitExe --execute-mutations --headless setup.reconfigure --state-root 'C:\DevToolkit-CIW\E2E'
-```
-
-Those mutation commands change the Windows development environment and belong only on the disposable Windows E2E host. They are not safe-host smoke commands.
-
-For the downloaded ZIP bundle, define the full launch path first:
-
-```powershell
-$LaunchPath = 'C:\DevToolkit-Preview\DevToolkit-0.1.0-preview.20260827.10-win-x64\launch.ps1'
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File $LaunchPath
-```
-
-Scoop candidate (also Preview/Test only):
-
-```powershell
-scoop install 'https://github.com/zergaus/dev-toolkit/releases/download/v0.1.0-preview.20260827.10/devtoolkit-preview.json'
-```
-
-Exact identity:
+The affected draft identity is retained only for incident traceability:
 
 - source commit: `c549e5c9ab8b337914287798591554c8045af62a` in private source authority `zergaus/dev-toolkit-source`;
 - `DevToolkit.exe`: 74,895,964 bytes, SHA-256 `C14DA16E28ED276F124D2755ADE0293A2A97A11FE4E15F45AEA83407230CD4B0`;
@@ -103,7 +70,7 @@ Third-party software that DevToolkit installs, configures, detects, or manages r
 
 The project is currently converging its runtime, terminal UI, bootstrap, catalog/state engine, installation adapters, verification, and release pipeline before the first public release.
 
-The current public artifact is deliberately limited to Preview/Test validation. Stable/Official support requirements and claims remain pending.
+There is currently no downloadable or executable public candidate. Stable/Official support requirements and claims remain pending.
 
 ---
 
