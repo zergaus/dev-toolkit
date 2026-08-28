@@ -7,10 +7,10 @@ param(
 Set-StrictMode -Version 2.0
 $ErrorActionPreference = 'Stop'
 
-$version = '0.1.0-preview.20260827.11'
+$version = '0.1.0-preview.20260828.12'
 $releaseRoot = "https://github.com/zergaus/dev-toolkit/releases/download/v$version"
 $manifestUri = "$releaseRoot/release-manifest.json"
-$manifestSha256 = 'B1D199651973022A6C4A4A7CF11B811E01EDA8A97E2AB8039BE7C303A74A9ABC'
+$manifestSha256 = 'E8F35DAFE09646A7FE928E8AAC022D5E46D578C209226B968844405632E28FA8'
 $allowedHost = @('github.com', 'release-assets.githubusercontent.com')
 $allowedQueryRedirectHost = @('release-assets.githubusercontent.com')
 $bootstrapRoot = Join-Path $env:LOCALAPPDATA "DevToolkit\preview-bootstrap\$version"
@@ -63,8 +63,8 @@ function Save-PinnedFile {
 $trustPath = Join-Path $bootstrapRoot 'ReleaseTrust.psm1'
 $bootstrapPath = Join-Path $bootstrapRoot 'Invoke-ImmutableBootstrap.ps1'
 
-Save-PinnedFile -Uri "$releaseRoot/ReleaseTrust.psm1" -ExpectedSha256 '5A90582EDE330B4F751B7135BD75B0EA74322CC0CA8D84F590C31856BD64154E' -Destination $trustPath
-Save-PinnedFile -Uri "$releaseRoot/Invoke-ImmutableBootstrap.ps1" -ExpectedSha256 'FB4A964546471DE7795F9F3F76A1E8E1D5993AE39E0E272C2C1180F58149603D' -Destination $bootstrapPath
+Save-PinnedFile -Uri "$releaseRoot/ReleaseTrust.psm1" -ExpectedSha256 '4349473B7784DE359694AC63A928256B7099C24C26EC378E737AA3BA589E00DC' -Destination $trustPath
+Save-PinnedFile -Uri "$releaseRoot/Invoke-ImmutableBootstrap.ps1" -ExpectedSha256 'A0B3A771605139280690AA82208DE550033F3BBF59EC83BF6DC0B054594CC330' -Destination $bootstrapPath
 
 & $bootstrapPath -ManifestUri $manifestUri -ExpectedManifestSha256 $manifestSha256 -AllowedHost $allowedHost -AllowedQueryRedirectHost $allowedQueryRedirectHost -CoreArguments $CoreArguments -StateRoot $StateRoot
 exit $LASTEXITCODE

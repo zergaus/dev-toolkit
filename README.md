@@ -2,18 +2,18 @@
 
 **DevToolkit** is a Windows development-environment lifecycle manager designed to make setup, repair, update, reconfiguration, and verification repeatable instead of turning each machine into a one-off installation project.
 
-> **Status:** Preview/Test pre-release `v0.1.0-preview.20260827.11` is available for bounded testing. It is **not Stable or Official**.
+> **Status:** Preview/Test correction candidate `v0.1.0-preview.20260828.12` is available for bounded testing. It is **not Stable or Official**.
 
 ## Preview/Test path-explicit quick start
 
 Run these lines in Windows PowerShell 5.1 or later. The installer is downloaded to a visible full path, verified by SHA-256, and then executed with `-File`. This path does not use `-EncodedCommand` or `Invoke-Expression`.
 
 ```powershell
-$Version = '0.1.0-preview.20260827.11'
+$Version = '0.1.0-preview.20260828.12'
 $InstallerUri = "https://github.com/zergaus/dev-toolkit/releases/download/v$Version/install-preview.ps1"
 $InstallerPath = Join-Path $env:TEMP "DevToolkit-$Version-install-preview.ps1"
 Invoke-WebRequest -UseBasicParsing -Uri $InstallerUri -OutFile $InstallerPath
-if ((Get-FileHash -LiteralPath $InstallerPath -Algorithm SHA256).Hash -ne 'B82F7D23586954DEF4981C89AC8B0D5E3FAAC02B6229FE7CAA256807985AD4BE') {
+if ((Get-FileHash -LiteralPath $InstallerPath -Algorithm SHA256).Hash -ne '99E6154F2A77DE7861A1360BA15DD277614F97307FDF7816BD0ECB2A491F6A0B') {
     throw 'DevToolkit Preview/Test installer SHA-256 mismatch.'
 }
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File $InstallerPath
@@ -22,13 +22,13 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File $InstallerPath
 The exact staged executable path is:
 
 ```powershell
-$DevToolkitExe = Join-Path $env:LOCALAPPDATA 'DevToolkit\bootstrap\DevToolkit-0.1.0-preview.20260827.11-ea9ebd146ada6718.exe'
+$DevToolkitExe = Join-Path $env:LOCALAPPDATA 'DevToolkit\bootstrap\DevToolkit-0.1.0-preview.20260828.12-3aa5b99e146366d1.exe'
 ```
 
 The complete disposable-Windows headless E2E commands are:
 
 ```powershell
-$DevToolkitExe = Join-Path $env:LOCALAPPDATA 'DevToolkit\bootstrap\DevToolkit-0.1.0-preview.20260827.11-ea9ebd146ada6718.exe'
+$DevToolkitExe = Join-Path $env:LOCALAPPDATA 'DevToolkit\bootstrap\DevToolkit-0.1.0-preview.20260828.12-3aa5b99e146366d1.exe'
 & $DevToolkitExe --execute-mutations --headless full.install --state-root 'C:\DevToolkit-CIW\E2E'
 & $DevToolkitExe --headless complete.check --state-root 'C:\DevToolkit-CIW\E2E'
 & $DevToolkitExe --execute-mutations --headless update.existing --state-root 'C:\DevToolkit-CIW\E2E'
@@ -41,24 +41,25 @@ Those mutation commands belong only on the designated disposable Windows E2E hos
 For the downloaded ZIP bundle, define the full launch path first:
 
 ```powershell
-$LaunchPath = 'C:\DevToolkit-Preview\DevToolkit-0.1.0-preview.20260827.11-win-x64\launch.ps1'
+$LaunchPath = 'C:\DevToolkit-Preview\DevToolkit-0.1.0-preview.20260828.12-win-x64\launch.ps1'
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File $LaunchPath
 ```
 
 Scoop candidate, also Preview/Test only:
 
 ```powershell
-scoop install 'https://github.com/zergaus/dev-toolkit/releases/download/v0.1.0-preview.20260827.11/devtoolkit-preview.json'
+scoop install 'https://github.com/zergaus/dev-toolkit/releases/download/v0.1.0-preview.20260828.12/devtoolkit-preview.json'
 ```
 
 Exact identity:
 
-- source commit: `6bda3e54a4718dd763f0531d7ae7e528eed72e2d` in private source authority `zergaus/dev-toolkit-source`;
-- `DevToolkit.exe`: 74,895,964 bytes, SHA-256 `EA9EBD146ADA67187B4A3A5B1C8CF42E3EE4A8BAAC4EF83B59A5F5EF8442528B`;
-- `release-manifest.json`: SHA-256 `B1D199651973022A6C4A4A7CF11B811E01EDA8A97E2AB8039BE7C303A74A9ABC`;
-- bundle ZIP: SHA-256 `693A8E92550FCADD821C4355FE783EA1C4A575D47FCE410E8C9DF201101E756F`.
+- source commit: `dbc63ce052bff556f8587f668c9eb012d6c9f107` in private source authority `zergaus/dev-toolkit-source`;
+- `DevToolkit.exe`: 75,133,020 bytes, SHA-256 `3AA5B99E146366D183EE97FA645A3CA3D2C04D27AEBC7E565D11D8E02F6663C7`;
+- `release-manifest.json`: SHA-256 `E8F35DAFE09646A7FE928E8AAC022D5E46D578C209226B968844405632E28FA8`;
+- bundle ZIP: SHA-256 `CE4D19B95FEB024B7C58745353D3A730B711CF1D1EEF80E57679FBDB13D261CA`;
+- installer: SHA-256 `99E6154F2A77DE7861A1360BA15DD277614F97307FDF7816BD0ECB2A491F6A0B`.
 
-The earlier Avast Behavior Shield record identified the discarded `powershell.exe -EncodedCommand` test harness as `IDP.HELU.PSE90%s_cmd`; it did not identify `DevToolkit.exe` as the detection path. The corrected `.11` public acquisition, exact executable, safe rerun, headless/plain/rich/narrow checks produced no new Avast ScanResult on the tested machine. This bounded observation is not an Avast vendor attestation or a digital-signature claim; the executable remains unsigned.
+Avast ScanResult `73` later proved that the Human first-run failure targeted the exact historical `.11` executable as `IDP.Generic`, not the discarded encoded PowerShell harness. The new `.12` identity has passed local Machine Gate; fresh public first-run behavior remains acceptance-bearing. No exclusion or shield change is required by this Preview/Test path, and the executable remains unsigned.
 
 This Preview/Test distribution is not an `Official Release` as defined by the current license. Public availability does not create a broader license grant or a Stable/production-readiness claim.
 
