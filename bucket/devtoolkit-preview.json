@@ -1,11 +1,11 @@
 {
-  "version": "0.1.0-preview.20260827.10",
+  "version": "0.1.0-preview.20260827.11",
   "description": "DevToolkit Preview/Test pre-release; not Stable or Official",
   "license": "Proprietary",
   "architecture": {
     "64bit": {
-      "url": "https://github.com/zergaus/dev-toolkit/releases/download/v0.1.0-preview.20260827.10/DevToolkit.exe",
-      "hash": "c14da16e28ed276f124d2755ade0293a2a97a11fe4e15f45aea83407230cd4b0"
+      "url": "https://github.com/zergaus/dev-toolkit/releases/download/v0.1.0-preview.20260827.11/DevToolkit.exe",
+      "hash": "ea9ebd146ada67187b4a3a5b1c8cf42e3ee4a8baac4ef83b59a5f5ef8442528b"
     }
   },
   "bin": "DevToolkit.exe"

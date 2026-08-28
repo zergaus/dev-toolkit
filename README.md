@@ -2,23 +2,63 @@
 
 **DevToolkit** is a Windows development-environment lifecycle manager designed to make setup, repair, update, reconfiguration, and verification repeatable instead of turning each machine into a one-off installation project.
 
-> **Status:** **SECURITY HOLD.** Preview/Test pre-release `v0.1.0-preview.20260827.10` has been withdrawn to Draft. Do **not** download or run it. It is not Stable or Official.
+> **Status:** Preview/Test pre-release `v0.1.0-preview.20260827.11` is available for bounded testing. It is **not Stable or Official**.
 
-## Preview/Test security hold
+## Preview/Test path-explicit quick start
 
-The first public-acquisition check exposed two unresolved release-path findings:
+Run these lines in Windows PowerShell 5.1 or later. The installer is downloaded to a visible full path, verified by SHA-256, and then executed with `-File`. This path does not use `-EncodedCommand` or `Invoke-Expression`.
 
-- Avast Behavior Shield detected the test harness process `powershell.exe` as `IDP.HELU.PSE90%s_cmd` while it used `-EncodedCommand`. The observed record did not identify `DevToolkit.exe` as the detected path, but the finding has not been dismissed as a false positive.
-- The immutable bootstrap rejected GitHub's signed release-asset redirect because the redirect contains a query string. The public acquisition path therefore did not pass its declared E2E gate.
+```powershell
+$Version = '0.1.0-preview.20260827.11'
+$InstallerUri = "https://github.com/zergaus/dev-toolkit/releases/download/v$Version/install-preview.ps1"
+$InstallerPath = Join-Path $env:TEMP "DevToolkit-$Version-install-preview.ps1"
+Invoke-WebRequest -UseBasicParsing -Uri $InstallerUri -OutFile $InstallerPath
+if ((Get-FileHash -LiteralPath $InstallerPath -Algorithm SHA256).Hash -ne 'B82F7D23586954DEF4981C89AC8B0D5E3FAAC02B6229FE7CAA256807985AD4BE') {
+    throw 'DevToolkit Preview/Test installer SHA-256 mismatch.'
+}
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File $InstallerPath
+```
 
-The release is intentionally kept as a Draft while these findings are investigated and corrected. No quick-start, Scoop, launch, or mutation command is currently authorized from this repository.
+The exact staged executable path is:
 
-The affected draft identity is retained only for incident traceability:
+```powershell
+$DevToolkitExe = Join-Path $env:LOCALAPPDATA 'DevToolkit\bootstrap\DevToolkit-0.1.0-preview.20260827.11-ea9ebd146ada6718.exe'
+```
 
-- source commit: `c549e5c9ab8b337914287798591554c8045af62a` in private source authority `zergaus/dev-toolkit-source`;
-- `DevToolkit.exe`: 74,895,964 bytes, SHA-256 `C14DA16E28ED276F124D2755ADE0293A2A97A11FE4E15F45AEA83407230CD4B0`;
-- `release-manifest.json`: SHA-256 `5E3097704BEC5F8BA0B3B3402FD9C7C6F40F90A19AD2F6B3B5A4642CB72F7B61`;
-- bundle ZIP: SHA-256 `07F86B697DDAB61BFB9517F5C50040E33CC50C45F322D85F09C18BD999EC2DD7`.
+The complete disposable-Windows headless E2E commands are:
+
+```powershell
+$DevToolkitExe = Join-Path $env:LOCALAPPDATA 'DevToolkit\bootstrap\DevToolkit-0.1.0-preview.20260827.11-ea9ebd146ada6718.exe'
+& $DevToolkitExe --execute-mutations --headless full.install --state-root 'C:\DevToolkit-CIW\E2E'
+& $DevToolkitExe --headless complete.check --state-root 'C:\DevToolkit-CIW\E2E'
+& $DevToolkitExe --execute-mutations --headless update.existing --state-root 'C:\DevToolkit-CIW\E2E'
+& $DevToolkitExe --execute-mutations --headless repair.existing --state-root 'C:\DevToolkit-CIW\E2E'
+& $DevToolkitExe --execute-mutations --headless setup.reconfigure --state-root 'C:\DevToolkit-CIW\E2E'
+```
+
+Those mutation commands belong only on the designated disposable Windows E2E host. They are not safe-host smoke commands.
+
+For the downloaded ZIP bundle, define the full launch path first:
+
+```powershell
+$LaunchPath = 'C:\DevToolkit-Preview\DevToolkit-0.1.0-preview.20260827.11-win-x64\launch.ps1'
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File $LaunchPath
+```
+
+Scoop candidate, also Preview/Test only:
+
+```powershell
+scoop install 'https://github.com/zergaus/dev-toolkit/releases/download/v0.1.0-preview.20260827.11/devtoolkit-preview.json'
+```
+
+Exact identity:
+
+- source commit: `6bda3e54a4718dd763f0531d7ae7e528eed72e2d` in private source authority `zergaus/dev-toolkit-source`;
+- `DevToolkit.exe`: 74,895,964 bytes, SHA-256 `EA9EBD146ADA67187B4A3A5B1C8CF42E3EE4A8BAAC4EF83B59A5F5EF8442528B`;
+- `release-manifest.json`: SHA-256 `B1D199651973022A6C4A4A7CF11B811E01EDA8A97E2AB8039BE7C303A74A9ABC`;
+- bundle ZIP: SHA-256 `693A8E92550FCADD821C4355FE783EA1C4A575D47FCE410E8C9DF201101E756F`.
+
+The earlier Avast Behavior Shield record identified the discarded `powershell.exe -EncodedCommand` test harness as `IDP.HELU.PSE90%s_cmd`; it did not identify `DevToolkit.exe` as the detection path. The corrected `.11` public acquisition, exact executable, safe rerun, headless/plain/rich/narrow checks produced no new Avast ScanResult on the tested machine. This bounded observation is not an Avast vendor attestation or a digital-signature claim; the executable remains unsigned.
 
 This Preview/Test distribution is not an `Official Release` as defined by the current license. Public availability does not create a broader license grant or a Stable/production-readiness claim.
 
@@ -70,7 +110,7 @@ Third-party software that DevToolkit installs, configures, detects, or manages r
 
 The project is currently converging its runtime, terminal UI, bootstrap, catalog/state engine, installation adapters, verification, and release pipeline before the first public release.
 
-There is currently no downloadable or executable public candidate. Stable/Official support requirements and claims remain pending.
+The current public artifact is deliberately limited to Preview/Test validation. Stable/Official support requirements and claims remain pending.
 
 ---
 
